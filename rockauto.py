@@ -56,14 +56,14 @@ class swamp(object):
 
 class door():
 	@staticmethod
-	def usr_wx():#user operation interfaces
+	def usr_wx():				#user operation interfaces
 
 		print 'ready for searching oe?y/n?'
 		a=raw_input()
 		if a =='y' or a== 'yes':
-			print 'what is file name you want to save?partnum :'
+			print 'what is file name you want to save in local file? partnum :'
 			partnum=raw_input()
-			print 'input oe_num:'
+			print 'And input oe_num which you want to search:'
 			oe_num=raw_input()
 			return partnum,oe_num
 
