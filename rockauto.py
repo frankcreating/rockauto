@@ -72,15 +72,30 @@ class door():
 			return 0,0
 class Search_method(object):#several ways to get detailed information
 	@classmethod
-	def bs(self,text_name):
-		soup=BeautifulSoup(open('/home/frank/%s.txt'%text_name),'html5lib')#text_name == partnum Beacuse I save text's name as partnum
-		res=soup.findAll('span',{"title":"Replaces these Alternate/ OE Part Numbers"})
-		return res
-	def web_source(self):
-		pass
-	def img_source(self):
-		pass
-
+	def pic(self):
+		f=open('/home/frank/fc333.txt')#text_name == partnum Beacuse I save text's name as partnum
+		patten=re.compile(r"www.(.*?).jpg")#src="http://www.rockauto.com/info
+		text=f.read()
+		res=patten.findall(text)
+		return res#url without http://wwww and .jpg
+	@classmethod
+	def pic_url_factory(self,orignal_url):#it;s wrong if use url which got by pic method 
+		pic_url=[i for i in range(len(a))]
+		n=0
+		for i in orignal_url:
+			pic_url[n]='http://www.'+i.replace('\\',"")+'.jpg'
+			n+=1
+		return pic_url#http://www.rockauto.com/info/xxxxxxxxxxxxxxxxxxxxxxxx
+	@classmethod
+	def pic_save(self,pic_url,file_path,partnum):#save pic in file_path named partnum+1,2,4 or 5, and soon 
+		n=0
+		for i in pic_url:
+			n+=1
+			file_path=file_path+'%s_%d'%(partnum,n)
+			r=requests.get(i)
+			with open(file_path,'wb') as code:
+				code.write(r.content)
+				print 'picture already save in %s file_path'%file_path
 
 if __name__=="__main__":
 	a=swamp()#'fctext','0905038'
